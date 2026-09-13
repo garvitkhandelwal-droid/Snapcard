@@ -41,7 +41,13 @@ in the repo; `02-decisions.md` records exactly where they are now wrong.
 
 ## Start here next time
 
-**Merge `admin-date-range`, then finish the deploy checks.** The 13 earlier commits are
+**Tap the lightbox, then merge one PR.** `card-lightbox` carries the lightbox *and* the
+merged date-range work, so merging it alone brings everything and `admin-date-range`
+should be closed as redundant. Before merging, someone has to open a lead on a phone, tap
+a card and confirm the close button works — the overlay was inert for an unknown length of
+time while every automated check passed.
+
+**Then finish the deploy checks.** The 13 earlier commits are
 already merged and live (`fd1ea49`). Branch `admin-date-range` is pushed but not merged.
 Hostinger deploys **`main`**, so merging is releasing. In order:
 

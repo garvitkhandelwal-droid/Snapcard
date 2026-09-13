@@ -6,6 +6,28 @@
 > the commit history. Each is dated and anchored to the commit that carried it, so the
 > ordering is real even though the writing is after the fact.
 
+## 2026-09-13 — The card lightbox zooms, and carries almost no chrome (`3c55663`, `082f3c2`)
+
+- **Decision:** tapping the enlarged card toggles 2.5x and dragging pans; front and back
+  live in one lightbox reached by swipe, arrow keys or dots. The only chrome is the side
+  label, a close button, and two dots when there is a second side.
+- **Why zoom at all:** the component existed so a rep could read a phone number off a card
+  when a field looked wrong, and it could not. A business card is landscape, so fitting it
+  to a portrait phone fits it to *width* — a thin band barely larger than the thumbnail
+  that opened it.
+- **Why no library:** zoom is a scroll container and one width change; panning is that
+  container scrolling, driven by pointer events. Native pinch still works over the top.
+  About fifteen lines against a dependency.
+- **Rejected:** rotating landscape cards 90° to fill the screen (disorienting); a gesture
+  library (not worth a dependency for this); and — after building it — a bottom bar with
+  prev/next carets, a `1/2` counter and a zoom hint. Those were `disabled:opacity-0`
+  invisible-but-space-taking buttons, a counter for something never larger than two, and
+  an instruction restating a convention every phone already teaches. The user called it
+  gimmicky and was right; all of it was removed the same day.
+- **Impact:** `ImageLightbox` now takes `images` + `startIndex` rather than a single
+  `src`. `stepIndex()` in `src/lib/lightbox-nav.ts` is the only testable part —
+  deliberately clamped, because two sides are not a carousel.
+
 ## 2026-09-13 — Date ranges are filtered in the browser, and shared by both lists
 
 - **Decision:** `RANGES` (**Today / 7 days / All**) and `startOf()` live in
