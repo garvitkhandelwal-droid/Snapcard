@@ -213,6 +213,15 @@ Each one was paid for. Do not rediscover them.
   member access; `env.ts` still validates them on the server.
 - **The service worker is disabled in development** — it fights HMR. To exercise the
   PWA locally: `npm run build && npm run start`.
+- **Anything rendered outside `<SheetContent>` while a Sheet is open is inert.** A modal
+  Radix sheet uses `react-remove-scroll`, which injects
+  `.block-interactivity-<id> { pointer-events: none }` onto `<body>` and gives it back
+  only inside the sheet's own content. A sibling overlay — however high its `z-index` —
+  inherits `none` and silently ignores every click; only `window` key listeners still
+  fire, so `Escape` works and nothing else does. Fix is `pointer-events-auto` on that
+  overlay's root: a declared value beats an inherited one regardless of specificity.
+  This killed the card lightbox completely, and **typecheck, lint and 170 tests passed
+  the whole time it was dead** — nothing automated here can see a click that never lands.
 - **The app sends no `Sforce-Auto-Assign` header, so Salesforce defaults it to TRUE.**
   Any *active* Lead Assignment Rule therefore runs on every upsert and reassigns the
   Lead away from the integration user — after which `/admin` and the reconcile job

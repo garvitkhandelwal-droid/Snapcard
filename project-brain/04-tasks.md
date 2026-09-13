@@ -9,8 +9,12 @@
 - [ ] **Make the GitHub repo private.** `project-brain/` is committed to a public repo and
       states that Atlas accepts `0.0.0.0/0` and that its password may be compromised. No
       credentials are exposed, but it is a map.
-- [ ] Merge the `admin-date-range` branch via a PR into `main` (CI runs on PRs; merging
-      deploys)
+- [ ] **Tap the card lightbox on a phone** and confirm the close button works. It was
+      completely inert while typecheck, lint and 170 tests passed — this one cannot be
+      checked any other way.
+- [ ] Merge the **`card-lightbox`** PR into `main` — it contains the date-range work too,
+      so close `admin-date-range` as redundant rather than merging it (CI runs on PRs;
+      merging deploys)
 
 ### Salesforce — the active thread
 
@@ -96,6 +100,9 @@ Gated on the org getting `SnapCard_Client_Id__c` and the FLS grants, then
 
 <!-- - [x] YYYY-MM-DD — task -->
 
+- [x] 2026-09-13 — **Card lightbox zooms and responds to taps again** — it was inert
+      because a modal Radix sheet puts `pointer-events: none` on `<body>` and the overlay
+      renders outside the sheet content (`3c55663`, `082f3c2`)
 - [x] 2026-09-13 — **Admin can see past today** — shared `lead-range.ts` gives `/admin`
       and `/leads` the same Today / 7 days / All pills, filtered in the browser so the
       day boundary is the viewer's rather than Hostinger's UTC (`1e4979d`)
